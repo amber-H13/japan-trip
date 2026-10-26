@@ -1,477 +1,657 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-TW" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2026 日本關西·飛驒高山·名古屋 8日自由行</title>
-    <!-- Tailwind CSS CDN -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome -->
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Sans TC', 'sans-serif'],
+                    },
+                    colors: {
+                        japan: {
+                            dark: '#0f172a',
+                            navDark: '#111827',
+                            navSub: '#1f2937',
+                            yellow: '#f59e0b',
+                            yellowHover: '#d97706',
+                            red: '#C8102E',
+                            sakura: '#FFB7C5',
+                            gold: '#fbbf24',
+                            bg: '#F8FAF9'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap');
-        body { font-family: 'Noto Sans TC', sans-serif; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
 
-    <!-- 頂部導覽列 -->
-    <header class="bg-slate-900 text-white sticky top-0 z-50 shadow-md">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <span class="bg-amber-500 text-slate-900 font-bold text-xs px-2 py-1 rounded">8 DAYS</span>
-                <h1 class="text-lg md:text-xl font-bold tracking-wide">日本關西·飛驒高山·名古屋自由行</h1>
-            </div>
-            <div class="text-xs text-slate-400 mt-1 md:mt-0">
-                <i class="fa-regular fa-calendar-days mr-1"></i> 2026/11/07 ~ 11/14
+    <!-- Header / Navbar matching image design -->
+    <header class="sticky top-0 z-50 bg-[#0f172a] text-white shadow-md">
+        <!-- Top Bar -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-slate-800/80">
+            <div class="flex items-center justify-between h-14">
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('overview')">
+                    <span class="bg-[#f59e0b] text-slate-950 font-black text-xs px-2.5 py-1 rounded tracking-wider uppercase">8 DAYS</span>
+                    <h1 class="font-bold text-lg text-white tracking-wide">日本關西・飛驒高山・名古屋自由行</h1>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="p-2 rounded-md text-slate-300 hover:text-white hover:bg-white/10 focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
             </div>
         </div>
-        <!-- 頁籤選單 -->
-        <nav class="bg-slate-800 border-t border-slate-700 overflow-x-auto scrollbar-none">
-            <div class="max-w-7xl mx-auto px-2 flex space-x-1 py-2 whitespace-nowrap">
-                <button onclick="switchTab('overview')" class="tab-btn px-3 py-1.5 rounded text-sm font-medium transition bg-amber-500 text-slate-900 shadow">總覽與備忘</button>
-                <button onclick="switchTab('day1')" class="tab-btn px-3 py-1.5 rounded text-sm font-medium transition text-slate-300 hover:bg-slate-700 hover:text-white">Day 1 大阪</button>
-                <button onclick="switchTab('day2')" class="tab-btn px-3 py-1.5 rounded text-sm font-medium transition text-slate-300 hover:bg-slate-700 hover:text-white">Day 2 勝尾寺</button>
-                <button onclick="switchTab('day3')" class="tab-btn px-3 py-1.5 rounded text-sm font-medium transition text-slate-300 hover:bg-slate-700 hover:text-white">Day 3 環球影城</button>
-                <button onclick="switchTab('day4')" class="tab-btn px-3 py-1.5 rounded text-sm font-medium transition text-slate-300 hover:bg-slate-700 hover:text-white">Day 4 高山移動</button>
-                <button onclick="switchTab('day5')" class="tab-btn px-3 py-1.5 rounded text-sm font-medium transition text-slate-300 hover:bg-slate-700 hover:text-white">Day 5 新穗高</button>
-                <button onclick="switchTab('day6')" class="tab-btn px-3 py-1.5 rounded text-sm font-medium transition text-slate-300 hover:bg-slate-700 hover:text-white">Day 6 合掌村</button>
-                <button onclick="switchTab('day7')" class="tab-btn px-3 py-1.5 rounded text-sm font-medium transition text-slate-300 hover:bg-slate-700 hover:text-white">Day 7 犬山城</button>
-                <button onclick="switchTab('day8')" class="tab-btn px-3 py-1.5 rounded text-sm font-medium transition text-slate-300 hover:bg-slate-700 hover:text-white">Day 8 返台</button>
+
+        <!-- Sub Nav / Tabs Bar -->
+        <div class="bg-[#1e293b]/60 backdrop-blur-sm border-b border-slate-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <nav class="hidden md:flex space-x-1 overflow-x-auto py-2">
+                    <button onclick="switchTab('overview')" id="tab-btn-overview" class="tab-btn px-3.5 py-1.5 rounded text-sm font-bold transition-all bg-[#f59e0b] text-slate-950 shadow-sm">總覽與備忘</button>
+                    <button onclick="switchTab('day1')" id="tab-btn-day1" class="tab-btn px-3.5 py-1.5 rounded text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-white/10">Day 1 大阪</button>
+                    <button onclick="switchTab('day2')" id="tab-btn-day2" class="tab-btn px-3.5 py-1.5 rounded text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-white/10">Day 2 勝尾寺</button>
+                    <button onclick="switchTab('day3')" id="tab-btn-day3" class="tab-btn px-3.5 py-1.5 rounded text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-white/10">Day 3 環球影城</button>
+                    <button onclick="switchTab('day4')" id="tab-btn-day4" class="tab-btn px-3.5 py-1.5 rounded text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-white/10">Day 4 高山移動</button>
+                    <button onclick="switchTab('day5')" id="tab-btn-day5" class="tab-btn px-3.5 py-1.5 rounded text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-white/10">Day 5 新穗高</button>
+                    <button onclick="switchTab('day6')" id="tab-btn-day6" class="tab-btn px-3.5 py-1.5 rounded text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-white/10">Day 6 合掌村</button>
+                    <button onclick="switchTab('day7')" id="tab-btn-day7" class="tab-btn px-3.5 py-1.5 rounded text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-white/10">Day 7 犬山城</button>
+                    <button onclick="switchTab('day8')" id="tab-btn-day8" class="tab-btn px-3.5 py-1.5 rounded text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-white/10">Day 8 返台</button>
+                    <button onclick="switchTab('maps')" id="tab-btn-maps" class="tab-btn px-3.5 py-1.5 rounded text-sm font-medium transition-all text-amber-400 hover:text-amber-300 hover:bg-white/10"><i class="fa-solid fa-map-location-dot mr-1"></i>MAP地圖集</button>
+                </nav>
             </div>
-        </nav>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[#0f172a] border-t border-slate-800 px-3 pt-2 pb-3 space-y-1">
+            <button onclick="switchTab('overview'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-bold bg-[#f59e0b] text-slate-950">📌 總覽與備忘</button>
+            <button onclick="switchTab('day1'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-white/10">📅 Day 1 (11/07 六) 大阪抵達 / 心齋橋</button>
+            <button onclick="switchTab('day2'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-white/10">📅 Day 2 (11/08 日) 勝尾寺 / 大阪城</button>
+            <button onclick="switchTab('day3'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-white/10">📅 Day 3 (11/09 一) 日本環球影城 USJ</button>
+            <button onclick="switchTab('day4'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-white/10">📅 Day 4 (11/10 二) 大阪➔高山 / 老街散策</button>
+            <button onclick="switchTab('day5'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-white/10">📅 Day 5 (11/11 三) 宮川朝市 / 新穗高纜車</button>
+            <button onclick="switchTab('day6'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-white/10">📅 Day 6 (11/12 四) 白川鄉合掌村 ➔ 名古屋</button>
+            <button onclick="switchTab('day7'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-white/10">📅 Day 7 (11/13 五) 犬山城 / 名古屋城 / 大須</button>
+            <button onclick="switchTab('day8'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-white/10">📅 Day 8 (11/14 六) 名古屋 ➔ 中部國際機場 ✈ 台灣</button>
+            <button onclick="switchTab('maps'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-amber-400 hover:bg-white/10"><i class="fa-solid fa-map-pin mr-1"></i> 🗺️ Google MAP 快速地圖連結聚寶盆</button>
+        </div>
     </header>
 
-    <!-- 主要內容區 -->
-    <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full">
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
-        <!-- ==================== 總覽與備忘 (Overview) ==================== -->
-        <section id="overview" class="tab-content active space-y-6">
+        <!-- TAB: OVERVIEW & PREPARATION -->
+        <div id="tab-overview" class="tab-content active space-y-6">
+            
             <!-- Hero Banner -->
-            <div class="relative rounded-2xl overflow-hidden shadow-xl bg-gradient-to-r from-slate-900 via-slate-800 to-rose-950 text-white p-6 md:p-10">
-                <div class="relative z-10 max-w-3xl space-y-4">
-                    <span class="bg-amber-500 text-slate-900 font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider">8 Days Itinerary</span>
-                    <h2 class="text-2xl md:text-4xl font-black tracking-tight">日本關西·飛驒高山·名古屋自由行</h2>
-                    <p class="text-slate-300 text-sm md:text-base"><i class="fa-regular fa-calendar-days text-amber-400 mr-2"></i>旅遊日期：2026/11/07 (六) ～ 2026/11/14 (六)</p>
-                    <div class="flex flex-wrap gap-2 pt-2">
-                        <span class="bg-slate-800/80 border border-slate-700 text-xs px-3 py-1.5 rounded-lg text-slate-200">🏨 大阪：APA難波心齋橋西</span>
-                        <span class="bg-slate-800/80 border border-slate-700 text-xs px-3 py-1.5 rounded-lg text-slate-200">🏨 高山：KOKO HOTEL高山</span>
-                        <span class="bg-slate-800/80 border border-slate-700 text-xs px-3 py-1.5 rounded-lg text-slate-200">🏨 名古屋：APA名古屋站前南</span>
+            <div class="relative rounded-2xl p-6 md:p-10 text-white shadow-xl overflow-hidden min-h-[220px] flex flex-col justify-center bg-slate-900">
+                <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=1600&auto=format&fit=crop" alt="Japan View" class="absolute inset-0 w-full h-full object-cover object-center opacity-40">
+                <div class="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-900/80 to-red-950/70"></div>
+                <div class="absolute -right-6 -bottom-6 opacity-20 text-9xl select-none pointer-events-none">⛩️</div>
+                
+                <div class="relative z-10 max-w-3xl">
+                    <span class="bg-[#f59e0b] text-slate-950 font-black px-3 py-1 rounded text-xs uppercase tracking-wider shadow">8 Days Itinerary</span>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold mt-3 tracking-tight drop-shadow-md">日本關西 · 飛驒高山 · 名古屋自由行</h2>
+                    <p class="text-slate-200 mt-2 text-sm sm:text-base font-medium drop-shadow">📅 旅遊日期：2026/11/07 (六) ～ 2026/11/14 (六)</p>
+                    
+                    <div class="mt-6 flex flex-wrap gap-3">
+                        <a href="https://www.google.com/maps/search/APA+Hotel+Namba+Shinsaibashi+Nishi" target="_blank" class="bg-black/40 hover:bg-black/60 text-white text-xs px-3 py-2 rounded-lg border border-white/30 backdrop-blur-sm transition flex items-center space-x-1 shadow-sm">
+                            <i class="fa-solid fa-hotel text-amber-400"></i>
+                            <span>大阪：APA難波心齋橋西</span>
+                        </a>
+                        <a href="https://www.google.com/maps/search/KOKO+HOTEL+Hida+Takayama" target="_blank" class="bg-black/40 hover:bg-black/60 text-white text-xs px-3 py-2 rounded-lg border border-white/30 backdrop-blur-sm transition flex items-center space-x-1 shadow-sm">
+                            <i class="fa-solid fa-hotel text-amber-400"></i>
+                            <span>高山：KOKO HOTEL高山</span>
+                        </a>
+                        <a href="https://www.google.com/maps/search/APA+Hotel+Nagoya+Ekimae+Minami" target="_blank" class="bg-black/40 hover:bg-black/60 text-white text-xs px-3 py-2 rounded-lg border border-white/30 backdrop-blur-sm transition flex items-center space-x-1 shadow-sm">
+                            <i class="fa-solid fa-hotel text-amber-400"></i>
+                            <span>名古屋：APA名古屋站前南</span>
+                        </a>
                     </div>
                 </div>
             </div>
 
-            <!-- 小夥伴合照區 -->
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 text-center">
-                <h3 class="text-sm font-bold text-slate-600 mb-3"><i class="fa-solid fa-users text-amber-500 mr-2"></i>快樂出遊小夥伴合照</h3>
-                <div class="flex justify-center">
-                    <img src="12345.png" alt="Travel Group Mascot" class="max-h-64 object-contain rounded-lg shadow-sm" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%23f1f5f9\'/><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'64748b\' font-size=\'16\'>請確保 12345.png 與網頁同資料夾</text></svg>';">
+            <!-- Mascot / Group Image Section -->
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 flex flex-col items-center justify-center text-center">
+                <img src="12345.png" alt="Travel Group Mascot" class="max-w-md w-full h-auto object-contain rounded-lg hover:scale-105 transition-transform duration-300 shadow-sm" onerror="this.onerror=null; this.src='12345.png';">
+                <p class="text-xs text-slate-500 mt-2 font-medium"><i class="fa-solid fa-heart text-red-600 mr-1"></i>快樂出遊小夥伴合照</p>
+            </div>
+
+            <!-- Flight & Hotel Quick Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Flight Info -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:shadow-md transition">
+                    <div class="flex items-center space-x-2 border-b border-slate-100 pb-3 mb-3">
+                        <i class="fa-solid fa-plane-departure text-red-600 text-xl"></i>
+                        <h3 class="font-bold text-lg text-slate-800">一、航班資訊 (Flight Details)</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
+                            <div class="flex justify-between items-center text-xs font-semibold text-slate-500 mb-1">
+                                <span>去程 · 虎航 IT210</span>
+                                <span>2026/11/07 (六)</span>
+                            </div>
+                            <div class="flex items-center justify-between text-sm font-bold text-slate-700">
+                                <div>台灣桃園 (TPE)<br><span class="text-xs font-normal text-slate-500">07:00 起飛</span></div>
+                                <i class="fa-solid fa-arrow-right text-slate-400"></i>
+                                <div class="text-right">關西國際 (KIX)<br><span class="text-xs font-normal text-slate-500">10:25 抵達</span></div>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
+                            <div class="flex justify-between items-center text-xs font-semibold text-slate-500 mb-1">
+                                <span>回程 · 虎航 IT207</span>
+                                <span>2026/11/14 (六)</span>
+                            </div>
+                            <div class="flex items-center justify-between text-sm font-bold text-slate-700">
+                                <div>中部國際 (NGO)<br><span class="text-xs font-normal text-slate-500">13:15 起飛</span></div>
+                                <i class="fa-solid fa-arrow-right text-slate-400"></i>
+                                <div class="text-right">台灣桃園 (TPE)<br><span class="text-xs font-normal text-slate-500">15:50 抵達</span></div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-amber-700 bg-amber-50 p-2.5 rounded-lg border border-amber-200">
+                            ⚠️ <strong>報到提醒：</strong>去程務必於 04:30～05:00 抵達桃園 T1 櫃檯；回程請於 10:45～11:15 抵達名古屋中部機場櫃檯。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Hotel Info -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:shadow-md transition">
+                    <div class="flex items-center space-x-2 border-b border-slate-100 pb-3 mb-3">
+                        <i class="fa-solid fa-hotel text-slate-800 text-xl"></i>
+                        <h3 class="font-bold text-lg text-slate-800">二、飯店住宿資訊 (Hotels)</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-start justify-between p-2.5 rounded-lg hover:bg-slate-50 transition border border-slate-100">
+                            <div>
+                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded font-semibold">11/07 ~ 11/09 (3晚)</span>
+                                <h4 class="font-bold text-sm text-slate-800 mt-1">APA Hotel Namba Shinsaibashi Nishi</h4>
+                                <p class="text-xs text-slate-500">雙人房 · 4間 [AGODA]</p>
+                            </div>
+                            <a href="https://www.google.com/maps/search/APA+Hotel+Namba+Shinsaibashi+Nishi" target="_blank" class="text-slate-800 hover:text-red-600 text-xs font-medium flex items-center bg-slate-100 px-2 py-1 rounded">
+                                <i class="fa-solid fa-location-dot mr-1"></i>MAP
+                            </a>
+                        </div>
+                        <div class="flex items-start justify-between p-2.5 rounded-lg hover:bg-slate-50 transition border border-slate-100">
+                            <div>
+                                <span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded font-semibold">11/10 ~ 11/11 (2晚)</span>
+                                <h4 class="font-bold text-sm text-slate-800 mt-1">KOKO HOTEL Hida Takayama (高山 KOKO)</h4>
+                                <p class="text-xs text-slate-500">雙人房 · 4間 [TRIP]</p>
+                            </div>
+                            <a href="https://www.google.com/maps/search/KOKO+HOTEL+Hida+Takayama" target="_blank" class="text-slate-800 hover:text-red-600 text-xs font-medium flex items-center bg-slate-100 px-2 py-1 rounded">
+                                <i class="fa-solid fa-location-dot mr-1"></i>MAP
+                            </a>
+                        </div>
+                        <div class="flex items-start justify-between p-2.5 rounded-lg hover:bg-slate-50 transition border border-slate-100">
+                            <div>
+                                <span class="bg-purple-100 text-purple-800 text-xs px-2 py-0.5 rounded font-semibold">11/12 ~ 11/14 (2晚)</span>
+                                <h4 class="font-bold text-sm text-slate-800 mt-1">APA Hotel Nagoya Ekimae Minami</h4>
+                                <p class="text-xs text-slate-500">含早餐 / 雙人房 · 4間 [AGODA]</p>
+                            </div>
+                            <a href="https://www.google.com/maps/search/APA+Hotel+Nagoya+Ekimae+Minami" target="_blank" class="text-slate-800 hover:text-red-600 text-xs font-medium flex items-center bg-slate-100 px-2 py-1 rounded">
+                                <i class="fa-solid fa-location-dot mr-1"></i>MAP
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- 航班資訊 -->
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4">
-                <h3 class="text-lg font-bold text-slate-900 border-b pb-2"><i class="fa-solid fa-plane-departure text-rose-600 mr-2"></i>一、 航班資訊 (Flight Details)</h3>
+            <!-- Climate & Packing Suggestions -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+                <div class="flex items-center space-x-2 border-b border-slate-100 pb-3 mb-4">
+                    <i class="fa-solid fa-temperature-three-quarters text-amber-500 text-xl"></i>
+                    <h3 class="font-bold text-lg text-slate-800">三、11月上旬氣候特點與穿搭建議</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-sky-50/60 p-4 rounded-xl border border-sky-100">
+                        <h4 class="font-bold text-sky-900 mb-2 text-sm flex items-center"><i class="fa-solid fa-city mr-2"></i>平地都市（大阪 / 名古屋）</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">白天約 14°C~18°C，早晚約 9°C~12°C。體感涼爽舒適，早晚溫差大，建議採洋蔥式穿法，內搭長袖或薄毛衣，外加保暖外套。</p>
+                    </div>
+                    <div class="bg-indigo-50/60 p-4 rounded-xl border border-indigo-100">
+                        <h4 class="font-bold text-indigo-900 mb-2 text-sm flex items-center"><i class="fa-solid fa-mountain mr-2"></i>山區景點（高山 / 白川鄉 / 新穗高）</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">白天約 8°C~13°C，早晚可能降至 0°C~4°C。山區風大且體感偏冷，有初雪機率！必備防風羽絨外套、手套、毛帽與圍巾。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Checklist -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-clipboard-check text-emerald-600 text-xl"></i>
+                        <h3 class="font-bold text-lg text-slate-800">四、行前準備互動檢查清單 (Checklist)</h3>
+                    </div>
+                    <span class="text-xs text-slate-400">點擊勾選可記錄</span>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-slate-700 border-b pb-1">重要證件與財務</h4>
+                        <label class="flex items-center space-x-2 cursor-pointer hover:text-slate-900"><input type="checkbox" class="rounded text-amber-500 focus:ring-amber-500"> <span>護照正本 (效期>6個月)</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer hover:text-slate-900"><input type="checkbox" class="rounded text-amber-500 focus:ring-amber-500"> <span>Visit Japan Web 截圖保存</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer hover:text-slate-900"><input type="checkbox" class="rounded text-amber-500 focus:ring-amber-500"> <span>日幣現金 (高山/合掌村備用)</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer hover:text-slate-900"><input type="checkbox" class="rounded text-amber-500 focus:ring-amber-500"> <span>海外信用卡 2 張以上</span></label>
+                    </div>
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-slate-700 border-b pb-1">交通與票券</h4>
+                        <label class="flex items-center space-x-2 cursor-pointer hover:text-slate-900"><input type="checkbox" class="rounded text-amber-500 focus:ring-amber-500"> <span>長途/濃飛巴士預約確認</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer hover:text-slate-900"><input type="checkbox" class="rounded text-amber-500 focus:ring-amber-500"> <span>ICOCA / Suica 卡加值</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer hover:text-slate-900"><input type="checkbox" class="rounded text-amber-500 focus:ring-amber-500"> <span>機票電子憑證/飯店確認單</span></label>
+                    </div>
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-slate-700 border-b pb-1">通訊與電子裝備</h4>
+                        <label class="flex items-center space-x-2 cursor-pointer hover:text-slate-900"><input type="checkbox" class="rounded text-amber-500 focus:ring-amber-500"> <span>eSIM / 網卡設定確認</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer hover:text-slate-900"><input type="checkbox" class="rounded text-amber-500 focus:ring-amber-500"> <span>行動電源 (須隨身登機)</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer hover:text-slate-900"><input type="checkbox" class="rounded text-amber-500 focus:ring-amber-500"> <span>各設備充電線</span></label>
+                    </div>
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-slate-700 border-b pb-1">個人生活用品</h4>
+                        <label class="flex items-center space-x-2 cursor-pointer hover:text-slate-900"><input type="checkbox" class="rounded text-amber-500 focus:ring-amber-500"> <span>個人常備藥/暈車藥/OK繃</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer hover:text-slate-900"><input type="checkbox" class="rounded text-amber-500 focus:ring-amber-500"> <span>護唇膏與保濕乳液</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer hover:text-slate-900"><input type="checkbox" class="rounded text-amber-500 focus:ring-amber-500"> <span>晴雨傘/購物袋/休足時間</span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: DAY 1 -->
+        <div id="tab-day1" class="tab-content space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-4 mb-6">
+                    <div>
+                        <span class="bg-[#f59e0b] text-slate-950 font-black text-xs px-3 py-1 rounded">Day 1</span>
+                        <h2 class="text-2xl font-bold text-slate-800 mt-1">2026/11/07 (六) 大阪抵達 · 心齋橋 & 難波漫遊</h2>
+                    </div>
+                    <div class="text-right text-xs text-slate-500">
+                        🏨 住宿：<a href="https://www.google.com/maps/search/APA+Hotel+Namba+Shinsaibashi+Nishi" target="_blank" class="font-semibold text-slate-800 hover:underline"><i class="fa-solid fa-location-dot"></i> APA Hotel Namba Shinsaibashi Nishi</a>
+                    </div>
+                </div>
+
+                <!-- Guidance Box -->
+                <div class="bg-amber-50 rounded-xl p-4 border border-amber-200 text-xs text-amber-900 mb-6 space-y-2">
+                    <h4 class="font-bold text-sm text-amber-900"><i class="fa-solid fa-map-pin mr-1"></i> 飯店與車站地鐵指引：</h4>
+                    <p>• 位於心齋橋站與難波站西側。經站內 B1 地下通道：御堂筋線/千日前線「難波站」25號出口步行4分鐘（大行李走 15-B 出口電梯）；四橋線「難波站」26-C 出口步行4分鐘。</p>
+                </div>
+
+                <!-- Timeline Schedule -->
+                <div class="relative border-l-2 border-slate-200 ml-4 pl-6 space-y-6 text-sm">
+                    <div class="relative">
+                        <span class="absolute -left-[31px] top-0 bg-red-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">1</span>
+                        <div class="font-bold text-slate-800">04:30 桃園機場集合</div>
+                        <p class="text-xs text-slate-500">第一航廈辦理報到手續。</p>
+                    </div>
+
+                    <div class="relative">
+                        <span class="absolute -left-[31px] top-0 bg-red-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">2</span>
+                        <div class="font-bold text-slate-800">07:00 - 10:25 台灣虎航 IT210 航班</div>
+                        <p class="text-xs text-slate-500">桃園國際機場 T1 ✈ 關西國際機場 T1（預計 10:25 抵達）。</p>
+                    </div>
+
+                    <div class="relative">
+                        <span class="absolute -left-[31px] top-0 bg-blue-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">3</span>
+                        <div class="font-bold text-slate-800">11:10 / 11:26 南海電鐵空港急行 ➔ 南海難波站</div>
+                        <p class="text-xs text-slate-500">抵達後至 2 樓搭乘『空港急行』前往南海難波站，車資約 ¥970，車程約 47 分鐘。</p>
+                    </div>
+
+                    <div class="relative">
+                        <span class="absolute -left-[31px] top-0 bg-emerald-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">4</span>
+                        <div class="font-bold text-slate-800">12:30 - 13:30 飯店寄放行李 & 午餐</div>
+                        <p class="text-xs text-slate-500">於 APA 飯店寄放行李，周邊享用午餐（可吃薩莉亞或道頓堀拉麵/串炸）。</p>
+                    </div>
+
+                    <div class="relative">
+                        <span class="absolute -left-[31px] top-0 bg-purple-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">5</span>
+                        <div class="font-bold text-slate-800">13:30 - 16:30 難波八阪神社 & 法善寺橫丁</div>
+                        <p class="text-xs text-slate-500">參觀 12 公尺高巨大獅子殿祈求勝運；漫步法善寺橫丁向『水掛不動尊』淋水祈福。</p>
+                    </div>
+
+                    <div class="relative">
+                        <span class="absolute -left-[31px] top-0 bg-amber-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">6</span>
+                        <div class="font-bold text-slate-800">17:00 (已預約) 🥩 燒肉大餐</div>
+                        <p class="text-xs text-slate-500">享用極品和牛燒肉大餐！</p>
+                    </div>
+
+                    <div class="relative">
+                        <span class="absolute -left-[31px] top-0 bg-pink-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">7</span>
+                        <div class="font-bold text-slate-800">夜間：心齋橋 / 道頓堀 購物逛街</div>
+                        <p class="text-xs text-slate-500">與固力果跑跑人 (Glico Man) 合照，展開藥妝與特色店家血拼！</p>
+                    </div>
+                </div>
+
+                <!-- Stores & Supermarkets List -->
+                <div class="mt-8 pt-6 border-t border-slate-200">
+                    <h3 class="font-bold text-base text-slate-800 mb-3"><i class="fa-solid fa-store text-amber-500 mr-2"></i>Day 1 推薦購物地圖與超市</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs">
+                        <a href="https://www.google.com/maps/search/難波CITY" target="_blank" class="p-3 bg-slate-50 rounded-lg border hover:border-amber-500 transition flex justify-between items-center">
+                            <div><span class="font-bold text-slate-700">難波CITY 本館 B2</span><p class="text-slate-500">3Coins/GU/UNIQLO/扭蛋機</p></div>
+                            <span class="text-slate-800 font-semibold"><i class="fa-solid fa-map-location-dot"></i> MAP</span>
+                        </a>
+                        <a href="https://www.google.com/maps/search/大丸心斎橋店南館" target="_blank" class="p-3 bg-slate-50 rounded-lg border hover:border-amber-500 transition flex justify-between items-center">
+                            <div><span class="font-bold text-slate-700">大丸心齋橋店南館 6F</span><p class="text-slate-500">mont-bell 戶外用品</p></div>
+                            <span class="text-slate-800 font-semibold"><i class="fa-solid fa-map-location-dot"></i> MAP</span>
+                        </a>
+                        <a href="https://www.google.com/maps/search/DAISO+大創戎橋店" target="_blank" class="p-3 bg-slate-50 rounded-lg border hover:border-amber-500 transition flex justify-between items-center">
+                            <div><span class="font-bold text-slate-700">DAISO 大創戎橋店</span><p class="text-slate-500">熱門平價百貨</p></div>
+                            <span class="text-slate-800 font-semibold"><i class="fa-solid fa-map-location-dot"></i> MAP</span>
+                        </a>
+                        <a href="https://www.google.com/maps/search/A-Price+難波店" target="_blank" class="p-3 bg-slate-50 rounded-lg border hover:border-amber-500 transition flex justify-between items-center">
+                            <div><span class="font-bold text-slate-700">A-Price 難波店</span><p class="text-slate-500">業務超市 (10:00-19:00)</p></div>
+                            <span class="text-slate-800 font-semibold"><i class="fa-solid fa-map-location-dot"></i> MAP</span>
+                        </a>
+                        <a href="https://www.google.com/maps/search/Life+Central+Square+難波店" target="_blank" class="p-3 bg-slate-50 rounded-lg border hover:border-amber-500 transition flex justify-between items-center">
+                            <div><span class="font-bold text-slate-700">LIFE 超市 難波店</span><p class="text-slate-500">旗艦超市 / 熟食滿分 (至24:00)</p></div>
+                            <span class="text-slate-800 font-semibold"><i class="fa-solid fa-map-location-dot"></i> MAP</span>
+                        </a>
+                        <a href="https://www.google.com/maps/search/AEON+Food+Style+東心齋橋店" target="_blank" class="p-3 bg-slate-50 rounded-lg border hover:border-amber-500 transition flex justify-between items-center">
+                            <div><span class="font-bold text-slate-700">AEON Food Style 東心齋橋</span><p class="text-slate-500">24小時營業宵夜首選</p></div>
+                            <span class="text-slate-800 font-semibold"><i class="fa-solid fa-map-location-dot"></i> MAP</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: DAY 2 -->
+        <div id="tab-day2" class="tab-content space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-4 mb-6">
+                    <div>
+                        <span class="bg-[#f59e0b] text-slate-950 font-black text-xs px-3 py-1 rounded">Day 2</span>
+                        <h2 class="text-2xl font-bold text-slate-800 mt-1">2026/11/08 (日) 勝尾寺達摩祈福 ➔ 大阪城巡禮</h2>
+                    </div>
+                    <div class="text-right text-xs text-slate-500">
+                        🏨 住宿：<a href="https://www.google.com/maps/search/APA+Hotel+Namba+Shinsaibashi+Nishi" target="_blank" class="font-semibold text-slate-800 hover:underline"><i class="fa-solid fa-location-dot"></i> APA Hotel Namba Shinsaibashi Nishi</a>
+                    </div>
+                </div>
+
+                <!-- Morning Tip -->
+                <div class="bg-sky-50 rounded-xl p-4 border border-sky-200 text-xs text-sky-900 mb-6">
+                    <h4 class="font-bold text-sm mb-1"><i class="fa-solid fa-clock mr-1"></i> 晨間出門提醒 (預計 08:01 搭車)：</h4>
+                    <p>建議最晚 <strong>07:40</strong> 從 APA 飯店出門，於 07:50 前抵達月台等候 08:01 御堂筋線電車。早餐可在超商買現烤三明治或吉野家/松屋享用。</p>
+                </div>
+
+                <!-- Schedule Table -->
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse text-sm">
+                    <table class="w-full text-left text-xs border-collapse">
                         <thead>
-                            <tr class="bg-slate-100 text-slate-700">
-                                <th class="p-3 border-b">行程</th>
-                                <th class="p-3 border-b">日期</th>
-                                <th class="p-3 border-b">航班</th>
-                                <th class="p-3 border-b">起飛地點 / 時間</th>
-                                <th class="p-3 border-b">抵達地點 / 時間</th>
+                            <tr class="bg-slate-100 text-slate-700 border-b">
+                                <th class="p-2.5 font-bold">時間</th>
+                                <th class="p-2.5 font-bold">地點 / 項目</th>
+                                <th class="p-2.5 font-bold">詳細內容與路線</th>
+                                <th class="p-2.5 font-bold">備註 / 票價</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="p-3 font-semibold text-rose-600">去程 (大阪)</td>
-                                <td class="p-3">2026/11/07 (六)</td>
-                                <td class="p-3">虎航 IT210</td>
-                                <td class="p-3">台灣桃園 (TPE) 07:00</td>
-                                <td class="p-3">關西國際機場 (KIX) 10:25</td>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr>
+                                <td class="p-2.5 font-semibold text-slate-600">07:00 - 07:40</td>
+                                <td class="p-2.5 font-bold">飯店 / 早餐</td>
+                                <td class="p-2.5">享用早餐，07:40 準時出門前往車站。</td>
+                                <td class="p-2.5 text-slate-500">預留15分進站</td>
                             </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-3 font-semibold text-indigo-600">回程 (名古屋)</td>
-                                <td class="p-3">2026/11/14 (六)</td>
-                                <td class="p-3">虎航 IT207</td>
-                                <td class="p-3">中部國際機場 (NGO) 13:15</td>
-                                <td class="p-3">台灣桃園 (TPE) 15:50</td>
+                            <tr class="bg-slate-50/50">
+                                <td class="p-2.5 font-semibold text-slate-600">08:01 - 08:36</td>
+                                <td class="p-2.5 font-bold">難波站 ➔ 箕面萱野站</td>
+                                <td class="p-2.5">搭乘 Osaka Metro 御堂筋線（直通北大阪急行電鐵）直達終點站。</td>
+                                <td class="p-2.5 text-slate-500">車資 530 日圓</td>
                             </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="bg-amber-50 border-l-4 border-amber-500 p-3 text-xs text-amber-800 rounded-r">
-                    ⚠️ <b>報到提醒：</b>去程 IT210 於 07:00 起飛，請於 04:30～05:00 前抵達桃園機場櫃檯；回程 IT207 於 13:15 起飛，請於 10:45～11:15 前抵達名古屋中部國際機場櫃檯。
-                </div>
-            </div>
-
-            <!-- 飯店住宿 -->
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4">
-                <h3 class="text-lg font-bold text-slate-900 border-b pb-2"><i class="fa-solid fa-hotel text-indigo-600 mr-2"></i>二、 飯店住宿資訊 (Hotel Reservations)</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="border rounded-lg p-4 bg-slate-50 space-y-2">
-                        <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded font-semibold">2026/11/07 ~ 11/09 (3晚)</span>
-                        <h4 class="font-bold text-slate-900">大阪：APA 難波心齋橋西</h4>
-                        <p class="text-xs text-slate-600">APA Hotel Namba Shinsaibashi Nishi (編號345)</p>
-                        <p class="text-xs font-medium text-slate-700">雙人房 · 4間 [AGODA訂房]</p>
-                    </div>
-                    <div class="border rounded-lg p-4 bg-slate-50 space-y-2">
-                        <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded font-semibold">2026/11/10 ~ 11/11 (2晚)</span>
-                        <h4 class="font-bold text-slate-900">高山：KOKO HOTEL Hida Takayama</h4>
-                        <p class="text-xs text-slate-600">高山 KOKO 飯店</p>
-                        <p class="text-xs font-medium text-slate-700">雙人房 · 4間 [TRIP訂房]</p>
-                    </div>
-                    <div class="border rounded-lg p-4 bg-slate-50 space-y-2">
-                        <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded font-semibold">2026/11/12 ~ 11/14 (2晚)</span>
-                        <h4 class="font-bold text-slate-900">名古屋：APA 名古屋站前南</h4>
-                        <p class="text-xs text-slate-600">APA Hotel Nagoya Ekimae Minami (編號331)</p>
-                        <p class="text-xs font-medium text-slate-700">含早餐 / 雙人房 · 4間 [AGODA訂房]</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ==================== Day 1 ==================== -->
-        <section id="day1" class="tab-content space-y-6">
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4">
-                <div class="flex justify-between items-center border-b pb-3">
-                    <h2 class="text-xl font-bold text-slate-950"><i class="fa-solid fa-map-location-dot text-rose-500 mr-2"></i>Day 1 行程：大阪抵達與道頓堀/心齋橋散策</h2>
-                    <span class="text-xs bg-slate-100 px-3 py-1 rounded-full font-medium text-slate-600">2026/11/07 (六) ｜ 宿：APA難波心齋橋西</span>
-                </div>
-                <!--  جدول Day 1 -->
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse text-sm">
-                        <thead>
-                            <tr class="bg-slate-100 text-slate-700">
-                                <th class="p-3 border-b w-28">時間</th>
-                                <th class="p-3 border-b w-40">地點 / 項目</th>
-                                <th class="p-3 border-b">詳細內容與路線</th>
-                                <th class="p-3 border-b w-36">備註 / 連結</th>
+                            <tr>
+                                <td class="p-2.5 font-semibold text-slate-600">09:00 - 09:22</td>
+                                <td class="p-2.5 font-bold">箕面萱野 ➔ 勝尾寺</td>
+                                <td class="p-2.5">站外 8 號/6 號公車站搭乘 30 號公車（計程車約 ¥3,500）。</td>
+                                <td class="p-2.5 text-slate-500">公車單程 800 日圓</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="p-3 font-semibold">04:30</td>
-                                <td class="p-3 font-medium">桃園機場集合</td>
-                                <td class="p-3">第一航廈</td>
-                                <td class="p-3 text-slate-500">-</td>
+                            <tr class="bg-red-50/40">
+                                <td class="p-2.5 font-semibold text-red-700">09:30 - 11:30</td>
+                                <td class="p-2.5 font-bold text-red-900"><a href="https://www.google.com/maps/search/勝尾寺" target="_blank" class="hover:underline"><i class="fa-solid fa-location-dot"></i> ⛩ 勝尾寺</a></td>
+                                <td class="p-2.5 text-slate-700">參觀祈求勝運與學業著名的勝尾寺，滿山滿谷達摩景觀（可線上預訂門票免排隊）。</td>
+                                <td class="p-2.5 text-red-700 font-medium">門票 500 日圓</td>
                             </tr>
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="p-3 font-semibold">07:00 - 10:25</td>
-                                <td class="p-3 font-medium">桃園 ✈ 關西</td>
-                                <td class="p-3">搭乘台灣虎航 IT210 航班 (TPE ➔ KIX)</td>
-                                <td class="p-3 text-slate-500">預計 10:25 抵達</td>
+                            <tr>
+                                <td class="p-2.5 font-semibold text-slate-600">12:15 - 13:40</td>
+                                <td class="p-2.5 font-bold">Q's Mall (箕面萱野)</td>
+                                <td class="p-2.5">搭乘 30 號公車返回，於站旁 Q's Mall 大型商場享用中餐與休息。</td>
+                                <td class="p-2.5 text-slate-500">美食街選擇豐富</td>
                             </tr>
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="p-3 font-semibold">11:39 / 12:09</td>
-                                <td class="p-3 font-medium">南海電鐵空港急行</td>
-                                <td class="p-3">搭乘『空港急行』前往南海難波站，再前往 APA 飯店寄放行李。</td>
-                                <td class="p-3 text-xs text-slate-600">票價約 ¥970<br>車程約 47 分</td>
+                            <tr class="bg-slate-50/50">
+                                <td class="p-2.5 font-semibold text-slate-600">13:45 - 14:25</td>
+                                <td class="p-2.5 font-bold">箕面萱野 ➔ 大阪城</td>
+                                <td class="p-2.5">御堂筋線至「本町站」，轉乘中央線至「森之宮站」或「谷町四丁目站」。</td>
+                                <td class="p-2.5 text-slate-500">車資約 530 日圓</td>
                             </tr>
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="p-3 font-semibold">12:30 - 13:30</td>
-                                <td class="p-3 font-medium">Check-in & 午餐</td>
-                                <td class="p-3">辦理行李寄放，於難波/心齋橋周邊享用午餐（推薦薩利亞或道頓堀拉麵）。</td>
-                                <td class="p-3 text-xs text-slate-600">15-B出口有電梯</td>
+                            <tr class="bg-amber-50/40">
+                                <td class="p-2.5 font-semibold text-amber-700">14:30 - 17:30</td>
+                                <td class="p-2.5 font-bold text-amber-900"><a href="https://www.google.com/maps/search/大阪城天守閣" target="_blank" class="hover:underline"><i class="fa-solid fa-location-dot"></i> 🏯 大阪城天守閣</a></td>
+                                <td class="p-2.5 text-slate-700">參觀大阪城公園、天守閣展望台、豐臣秀吉歷史文物及豐臣石垣館展示。</td>
+                                <td class="p-2.5 text-amber-800 font-medium">門票 1,200 日圓</td>
                             </tr>
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="p-3 font-semibold">13:30 -</td>
-                                <td class="p-3 font-medium">難波八阪神社 & 法善寺橫丁</td>
-                                <td class="p-3">參觀 12 公尺巨大獅子殿（難波八阪神社）、漫步法善寺橫丁向『水掛不動尊』淋水祈福。</td>
-                                <td class="p-3 text-xs text-slate-600">步行可達景點</td>
-                            </tr>
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="p-3 font-semibold">17:00</td>
-                                <td class="p-3 font-medium">吃燒肉 (已預約)</td>
-                                <td class="p-3">和牛大餐享受！</td>
-                                <td class="p-3"><a href="https://maps.google.com" target="_blank" class="text-rose-600 hover:underline font-bold"><i class="fa-solid fa-map-pin mr-1"></i>MAP</a></td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-3 font-semibold">夜間</td>
-                                <td class="p-3 font-medium">心齋橋 / 道頓堀逛街</td>
-                                <td class="p-3">固力果跑跑人 (Glico Man) 拍照，藥妝與商場血拚。</td>
-                                <td class="p-3 text-xs text-slate-600">自由活動</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- 購物地圖連結表 -->
-                <h4 class="font-bold text-md text-slate-800 pt-4 border-t">Day 1 常用購物與餐飲 MAP 連結</h4>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
-                    <div class="flex justify-between items-center p-3 border rounded bg-slate-50">
-                        <span>難波 CITY 本館 B2 (3Coins/GU/UNIQLO/扭蛋)</span>
-                        <a href="https://maps.google.com" target="_blank" class="text-rose-600 font-bold px-2 py-1 bg-rose-50 rounded hover:bg-rose-100"><i class="fa-solid fa-map-pin mr-1"></i>MAP</a>
-                    </div>
-                    <div class="flex justify-between items-center p-3 border rounded bg-slate-50">
-                        <span>大丸心齋橋店南館 6F (mont-bell)</span>
-                        <a href="https://maps.google.com" target="_blank" class="text-rose-600 font-bold px-2 py-1 bg-rose-50 rounded hover:bg-rose-100"><i class="fa-solid fa-map-pin mr-1"></i>MAP</a>
-                    </div>
-                    <div class="flex justify-between items-center p-3 border rounded bg-slate-50">
-                        <span>DAISO 大創戎橋店 / 心齋橋筋二丁目店</span>
-                        <a href="https://maps.google.com" target="_blank" class="text-rose-600 font-bold px-2 py-1 bg-rose-50 rounded hover:bg-rose-100"><i class="fa-solid fa-map-pin mr-1"></i>MAP</a>
-                    </div>
-                    <div class="flex justify-between items-center p-3 border rounded bg-slate-50">
-                        <span>薩莉亞 Saizeriya 心齋橋GATE店</span>
-                        <a href="https://maps.google.com" target="_blank" class="text-rose-600 font-bold px-2 py-1 bg-rose-50 rounded hover:bg-rose-100"><i class="fa-solid fa-map-pin mr-1"></i>MAP</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ==================== Day 2 ==================== -->
-        <section id="day2" class="tab-content space-y-6">
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4">
-                <div class="flex justify-between items-center border-b pb-3">
-                    <h2 class="text-xl font-bold text-slate-950"><i class="fa-solid fa-mountain-sun text-rose-500 mr-2"></i>Day 2 行程：勝尾寺與大阪城一日遊</h2>
-                    <span class="text-xs bg-slate-100 px-3 py-1 rounded-full font-medium text-slate-600">2026/11/08 (日) ｜ 宿：APA難波心齋橋西</span>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse text-sm">
-                        <thead>
-                            <tr class="bg-slate-100 text-slate-700">
-                                <th class="p-3 border-b w-28">時間</th>
-                                <th class="p-3 border-b w-40">地點 / 項目</th>
-                                <th class="p-3 border-b">詳細內容與路線</th>
-                                <th class="p-3 border-b w-36">備註 / 票價</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="p-3 font-semibold">07:00 - 07:40</td>
-                                <td class="p-3 font-medium">飯店 / 早餐</td>
-                                <td class="p-3">超商買回房內吃或外帶麵包，07:40 準時出門。</td>
-                                <td class="p-3 text-xs text-slate-600">預留步行時間</td>
-                            </tr>
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="p-3 font-semibold">08:01 - 08:36</td>
-                                <td class="p-3 font-medium">難波 ➔ 箕面萱野</td>
-                                <td class="p-3">搭乘御堂筋線（直通北大阪急行電鐵）直達終點站「箕面萱野站」。</td>
-                                <td class="p-3 text-xs text-slate-600">御堂筋線 ¥290<br>北急線 ¥240</td>
-                            </tr>
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="p-3 font-semibold">09:00 - 09:22</td>
-                                <td class="p-3 font-medium">箕面萱野 ➔ 勝尾寺</td>
-                                <td class="p-3">站外 8 號/6 號公車站搭乘 30 號公車。</td>
-                                <td class="p-3 text-xs text-slate-600">公車單程 ¥800</td>
-                            </tr>
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="p-3 font-semibold">09:30 - 11:30</td>
-                                <td class="p-3 font-medium">⛩ 勝尾寺</td>
-                                <td class="p-3">參觀勝運與學業著名的勝尾寺、滿山滿谷達摩景觀。</td>
-                                <td class="p-3 text-xs text-slate-600">門票 ¥500</td>
-                            </tr>
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="p-3 font-semibold">12:15 - 13:40</td>
-                                <td class="p-3 font-medium">Q's Mall 箕面萱野</td>
-                                <td class="p-3">於大型商場享用中餐、休息與散步採買。</td>
-                                <td class="p-3 text-xs text-slate-600">美食街選擇豐富</td>
-                            </tr>
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="p-3 font-semibold">14:30 - 17:30</td>
-                                <td class="p-3 font-medium">🏯 大阪城天守閣</td>
-                                <td class="p-3">參觀大阪城公園、天守閣展望台、豐臣石垣館展示。</td>
-                                <td class="p-3 text-xs text-slate-600">門票 ¥1,200</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-3 font-semibold">17:30 - 19:30</td>
-                                <td class="p-3 font-medium">梅田商圈 (彈性)</td>
-                                <td class="p-3">友都八喜梅田塔（寶可夢中心）、Gachagacha之森轉蛋。</td>
-                                <td class="p-3 text-xs text-slate-600">有體力再前往</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <!-- ==================== Day 3 ==================== -->
-        <section id="day3" class="tab-content space-y-6">
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4">
-                <div class="flex justify-between items-center border-b pb-3">
-                    <h2 class="text-xl font-bold text-slate-950"><i class="fa-solid fa-child-reaching text-rose-500 mr-2"></i>Day 3 行程：大阪環球影城一整天</h2>
-                    <span class="text-xs bg-slate-100 px-3 py-1 rounded-full font-medium text-slate-600">2026/11/09 (一) ｜ 宿：APA難波心齋橋西</span>
-                </div>
-                <div class="p-4 bg-slate-50 rounded-lg space-y-3 text-sm">
-                    <h3 class="font-bold text-slate-900"><i class="fa-solid fa-train text-indigo-600 mr-2"></i>交通指引：難波 ➔ 環球影城</h3>
-                    <p>由「大阪難波站」搭乘阪神難波線至「西九條站」，轉乘 JR 櫻島線（夢咲線）至「環球城站 (Universal City)」。</p>
-                    <div class="bg-amber-50 border-l-4 border-amber-500 p-3 text-xs text-amber-800 rounded">
-                        ⚠️ <b>搭車注意：</b>上車前務必確認月台看板，搭乘開往<b>「櫻島」</b>方向的普通列車才會到達環球城！
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ==================== Day 4 ==================== -->
-        <section id="day4" class="tab-content space-y-6">
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4">
-                <div class="flex justify-between items-center border-b pb-3">
-                    <h2 class="text-xl font-bold text-slate-950"><i class="fa-solid fa-bus text-rose-500 mr-2"></i>Day 4 行程：橫跨移動與高山老街散策</h2>
-                    <span class="text-xs bg-slate-100 px-3 py-1 rounded-full font-medium text-slate-600">2026/11/10 (二) ｜ 宿：KOKO HOTEL Hida Takayama</span>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse text-sm">
-                        <thead>
-                            <tr class="bg-slate-100 text-slate-700">
-                                <th class="p-3 border-b w-28">時間</th>
-                                <th class="p-3 border-b w-40">地點 / 項目</th>
-                                <th class="p-3 border-b">詳細內容與路線</th>
-                                <th class="p-3 border-b w-36">備註 / 費用</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="p-3 font-semibold">06:20 - 06:49</td>
-                                <td class="p-3 font-medium">大阪退房 ➔ 新大阪</td>
-                                <td class="p-3">御堂筋線（難波 ➔ 新大阪）</td>
-                                <td class="p-3 text-xs text-slate-600">車資 ¥290</td>
-                            </tr>
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="p-3 font-semibold">07:15 - 08:04</td>
-                                <td class="p-3 font-medium">新大阪 ➔ 名古屋</td>
-                                <td class="p-3">搭乘新幹線 Nozomi 236 號</td>
-                                <td class="p-3 text-xs text-slate-600">車資 ¥7,700 (已訂)</td>
-                            </tr>
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="p-3 font-semibold">08:45 - 11:20</td>
-                                <td class="p-3 font-medium">名鐵巴士：名古屋 ➔ 高山</td>
-                                <td class="p-3">至名鐵高速巴士站搭乘 13308 班次直達高山。</td>
-                                <td class="p-3 text-xs text-slate-600">車資 ¥3,600 (已訂)</td>
-                            </tr>
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="p-3 font-semibold">12:00 - 13:00</td>
-                                <td class="p-3 font-medium">高山在地午餐</td>
-                                <td class="p-3">高山拉麵、飛驒牛定食或路邊特色小吃。</td>
-                                <td class="p-3 text-slate-500">-</td>
-                            </tr>
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="p-3 font-semibold">13:00 - 16:30</td>
-                                <td class="p-3 font-medium">🏯 高山陣屋 & 上三之町老街</td>
-                                <td class="p-3">參觀高山陣屋（門票¥500）、漫步『飛驒小京都』黑木造傳統老街。</td>
-                                <td class="p-3 text-xs text-slate-600">老街約16:00打烊</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-3 font-semibold">18:00 - 20:30</td>
-                                <td class="p-3 font-medium">晚餐與超市採買</td>
-                                <td class="p-3">前往 BOSS FOODS MARKET 或駿河屋採買飛驒牛、生鮮熟食回飯店微波。</td>
-                                <td class="p-3 text-xs text-slate-600">飯店有微波爐</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <!-- ==================== Day 5 ==================== -->
-        <section id="day5" class="tab-content space-y-6">
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4">
-                <div class="flex justify-between items-center border-b pb-3">
-                    <h2 class="text-xl font-bold text-slate-950"><i class="fa-solid fa-snowflake text-rose-500 mr-2"></i>Day 5 行程：宮川朝市與新穗高纜車</h2>
-                    <span class="text-xs bg-slate-100 px-3 py-1 rounded-full font-medium text-slate-600">2026/11/11 (三) ｜ 宿：KOKO HOTEL Hida Takayama</span>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse text-sm">
-                        <thead>
-                            <tr class="bg-slate-100 text-slate-700">
-                                <th class="p-3 border-b w-28">時間</th>
-                                <th class="p-3 border-b w-40">地點 / 項目</th>
-                                <th class="p-3 border-b">詳細內容與路線</th>
-                                <th class="p-3 border-b w-36">備註 / 票價</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="p-3 font-semibold">07:00 - 08:10</td>
-                                <td class="p-3 font-medium">⛩ 宮川朝市散策</td>
-                                <td class="p-3">漫步宮川沿岸特色朝市。</td>
-                                <td class="p-3 text-xs text-slate-600">營業 07:00 - 12:00</td>
-                            </tr>
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="p-3 font-semibold">08:40 - 10:15</td>
-                                <td class="p-3 font-medium">高山 ➔ 新穗高纜車</td>
-                                <td class="p-3">購買『奧飛驒全景套票二日券』於 5 號月台搭乘濃飛巴士。</td>
-                                <td class="p-3 text-xs text-slate-600">車程約 1h35m</td>
-                            </tr>
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="p-3 font-semibold">10:15 - 14:30</td>
-                                <td class="p-3 font-medium">🚠 新穗高纜車與展望台</td>
-                                <td class="p-3">搭乘第一、第二雙層纜車登上海拔 2,156 公尺西穗高口站欣賞 360 度雪景。</td>
-                                <td class="p-3 text-xs text-slate-600">套票包含 ¥7,700</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-3 font-semibold">18:30 -</td>
-                                <td class="p-3 font-medium">晚餐與行李整理</td>
-                                <td class="p-3">今晚務必將大件行李收整妥當，準備明早更換住宿地點。</td>
-                                <td class="p-3 text-xs text-rose-600 font-bold">⚠️ 明日換飯店</td>
+                            <tr>
+                                <td class="p-2.5 font-semibold text-slate-600">17:30 - 19:30</td>
+                                <td class="p-2.5 font-bold">梅田商圈 (彈性行程)</td>
+                                <td class="p-2.5">若有體力可逛梅田：Gachagacha之森扭蛋、ROUND1夾娃娃、寶可夢中心。</td>
+                                <td class="p-2.5 text-slate-500">自由安排</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- ==================== Day 6 ==================== -->
-        <section id="day6" class="tab-content space-y-6">
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4">
-                <div class="flex justify-between items-center border-b pb-3">
-                    <h2 class="text-xl font-bold text-slate-950"><i class="fa-solid fa-house-chimney text-rose-500 mr-2"></i>Day 6 行程：合掌村與名古屋移動</h2>
-                    <span class="text-xs bg-slate-100 px-3 py-1 rounded-full font-medium text-slate-600">2026/11/12 (四) ｜ 宿：APA名古屋站前南</span>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse text-sm">
-                        <thead>
-                            <tr class="bg-slate-100 text-slate-700">
-                                <th class="p-3 border-b w-28">時間</th>
-                                <th class="p-3 border-b w-40">地點 / 項目</th>
-                                <th class="p-3 border-b">詳細內容與路線</th>
-                                <th class="p-3 border-b w-36">備註 / 已訂票</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="p-3 font-semibold">07:20 - 08:10</td>
-                                <td class="p-3 font-medium">高山 ➔ 白川鄉合掌村</td>
-                                <td class="p-3">搭乘 0041 班次濃飛巴士直達合掌村。</td>
-                                <td class="p-3 text-xs text-emerald-700 font-bold">✅ 已訂位 (5A-7B)</td>
-                            </tr>
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="p-3 font-semibold">08:10 - 12:20</td>
-                                <td class="p-3 font-medium">❄️ 白川鄉合掌村半日遊</td>
-                                <td class="p-3">城山天守閣展望台、參觀和田家/神田家合掌造、品嚐紅豆湯圓。</td>
-                                <td class="p-3 text-xs text-slate-600">展望台接駁車 ¥300</td>
-                            </tr>
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="p-3 font-semibold">12:35 - 13:25</td>
-                                <td class="p-3 font-medium">合掌村 ➔ 高山</td>
-                                <td class="p-3">搭乘 0102 班次濃飛巴士返回高山取行李。</td>
-                                <td class="p-3 text-xs text-emerald-700 font-bold">✅ 已訂位</td>
-                            </tr>
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="p-3 font-semibold">15:00 - 17:35</td>
-                                <td class="p-3 font-medium">高速巴士：高山 ➔ 名古屋</td>
-                                <td class="p-3">搭乘 13215 班次高速巴士返回名古屋車站。</td>
-                                <td class="p-3 text-xs text-emerald-700 font-bold">✅ 已訂位</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-3 font-semibold">18:30 - 21:00</td>
-                                <td class="p-3 font-medium">晚餐：矢場味噌豬排</td>
-                                <td class="p-3">前往享用名古屋最道地的黑味噌炸豬排（推薦名鐵店或ESCA店）。</td>
-                                <td class="p-3 text-xs text-slate-600">名古屋必吃名店</td>
-                            </tr>
-                        </tbody>
-                    </table>
+        <!-- TAB: DAY 3 -->
+        <div id="tab-day3" class="tab-content space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 text-center py-12">
+                <span class="text-6xl">🎢</span>
+                <h2 class="text-3xl font-extrabold text-slate-800 mt-4">2026/11/09 (一) 日本環球影城 USJ 一整天！</h2>
+                <p class="text-slate-500 text-sm mt-2 max-w-lg mx-auto">今日全天獻給關西最強主題樂園！請提前購買門票與快速通關，穿著最舒適的運動鞋，享受瑪利歐賽車、哈利波特禁忌之旅與精彩遊行！</p>
+                <div class="mt-6">
+                    <a href="https://www.google.com/maps/search/Universal+Studios+Japan" target="_blank" class="inline-flex items-center px-4 py-2 bg-[#f59e0b] text-slate-950 text-xs font-bold rounded-lg shadow hover:bg-amber-600 transition">
+                        <i class="fa-solid fa-map-location-dot mr-2"></i>開啟環球影城 Google 地圖
+                    </a>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- ==================== Day 7 (完整補上) ==================== -->
-        <section id="day7" class="tab-content space-y-6">
+        <!-- TAB: DAY 4 -->
+        <div id="tab-day4" class="tab-content space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-4 mb-6">
+                    <div>
+                        <span class="bg-[#f59e0b] text-slate-950 font-black text-xs px-3 py-1 rounded">Day 4</span>
+                        <h2 class="text-2xl font-bold text-slate-800 mt-1">2026/11/10 (二) 大阪 ➔ 名古屋 ➔ 飛驒高山老街</h2>
+                    </div>
+                    <div class="text-right text-xs text-slate-500">
+                        🏨 住宿：<a href="https://www.google.com/maps/search/KOKO+HOTEL+Hida+Takayama" target="_blank" class="font-semibold text-slate-800 hover:underline"><i class="fa-solid fa-location-dot"></i> KOKO HOTEL Hida Takayama</a>
+                    </div>
+                </div>
+
+                <!-- Schedule Timeline -->
+                <div class="space-y-4 text-xs">
+                    <div class="p-3 bg-slate-50 rounded-lg border flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <span class="font-bold text-slate-800">06:20 退房 ➔ 07:15 新幹線 Nozomi 236號</span>
+                            <p class="text-slate-500">難波 M13 ➔ 新大阪 M20，搭新幹線至名古屋 (08:04抵達)。已購車票 ¥7,700。</p>
+                        </div>
+                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-2xl font-bold text-center">新幹線</span>
+                    </div>
+
+                    <div class="p-3 bg-slate-50 rounded-lg border flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <span class="font-bold text-slate-800">08:45 - 11:20 名鐵高速巴士 (名古屋 ➔ 高山)</span>
+                            <p class="text-slate-500">搭乘 13308 班次直達高山。已購車票 ¥3,600。</p>
+                        </div>
+                        <span class="bg-emerald-100 text-emerald-800 px-2 py-1 rounded text-2xl font-bold text-center">高速巴士</span>
+                    </div>
+
+                    <div class="p-3 bg-amber-50 rounded-lg border border-amber-200">
+                        <span class="font-bold text-amber-900">13:00 - 16:30 高山陣屋 & 高山老街 (上三之町) 散策</span>
+                        <p class="text-amber-800 mt-1">參觀高山陣屋 (門票¥500)，漫步飛驒小京都黑木造町家。<strong>提醒：</strong>店家約 16:00 起打烊，建議提早前往！</p>
+                    </div>
+                </div>
+
+                <!-- Food Recommendations -->
+                <div class="mt-6 pt-6 border-t border-slate-200">
+                    <h3 class="font-bold text-base text-slate-800 mb-3"><i class="fa-solid fa-utensils text-amber-500 mr-2"></i>飛驒高山老街必吃美食清單</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+                        <div class="p-3 bg-slate-50 rounded-lg border">
+                            <h4 class="font-bold text-slate-800">🥩 飛驒牛炙燒握壽司</h4>
+                            <p class="text-slate-500 mt-1">底層用仙貝當盤子，入口即化！推薦：【飛驒こって牛】、【坂口屋】。</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-lg border">
+                            <h4 class="font-bold text-slate-800">🍡 五平餅 & 醬油烤糰子</h4>
+                            <p class="text-slate-500 mt-1">赤味噌慢烤五平餅與鹹香醬油糰子。推薦：【味處古川】。</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-lg border">
+                            <h4 class="font-bold text-slate-800">🍢 飛驒牛串燒 & 肉包</h4>
+                            <p class="text-slate-500 mt-1">現烤高檔飛驒牛赤身/霜降肉串。推薦：【六拾番】、【飛驒牛まん本鋪】。</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-lg border">
+                            <h4 class="font-bold text-slate-800">🍜 醬油高山拉麵</h4>
+                            <p class="text-slate-500 mt-1">鰹魚醬油清爽湯頭配細捲麵。推薦：【麵屋白川】、【豆天狗】。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Supermarkets -->
+                <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                    <a href="https://www.google.com/maps/search/BOSS+FOODS+MARKET+高山本店" target="_blank" class="p-3 bg-emerald-50 rounded-lg border border-emerald-200 flex justify-between items-center">
+                        <div><span class="font-bold text-emerald-900">BOSS FOODS MARKET 高山本店</span><p class="text-emerald-700">飛驒牛燒肉片與熟食便當極便宜 (至21:00)</p></div>
+                        <span class="text-emerald-800 font-bold"><i class="fa-solid fa-map-location-dot"></i> MAP</span>
+                    </a>
+                    <a href="https://www.google.com/maps/search/駿河屋+Asumo店" target="_blank" class="p-3 bg-emerald-50 rounded-lg border border-emerald-200 flex justify-between items-center">
+                        <div><span class="font-bold text-emerald-900">駿河屋 Asumo店</span><p class="text-emerald-700">綜合超市/熟食豐富/有微波爐 (至21:00)</p></div>
+                        <span class="text-emerald-800 font-bold"><i class="fa-solid fa-map-location-dot"></i> MAP</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: DAY 5 -->
+        <div id="tab-day5" class="tab-content space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-4 mb-6">
+                    <div>
+                        <span class="bg-[#f59e0b] text-slate-950 font-black text-xs px-3 py-1 rounded">Day 5</span>
+                        <h2 class="text-2xl font-bold text-slate-800 mt-1">2026/11/11 (三) 宮川朝市 ➔ 新穗高雙層纜車</h2>
+                    </div>
+                    <div class="text-right text-xs text-slate-500">
+                        🏨 住宿：<a href="https://www.google.com/maps/search/KOKO+HOTEL+Hida+Takayama" target="_blank" class="font-semibold text-slate-800 hover:underline"><i class="fa-solid fa-location-dot"></i> KOKO HOTEL Hida Takayama</a>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 p-4 rounded-xl border border-blue-200 text-xs text-blue-900 mb-6">
+                    <span class="font-bold"><i class="fa-solid fa-ticket mr-1"></i> 票券優惠：</span>建議於 08:10 前至濃飛巴士總站購買「奧飛驒全景套票二日券 (¥7,700)」，現省 ¥500，含新穗高纜車來回與公車車資。
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs mb-6">
+                    <div class="p-4 bg-slate-50 rounded-xl border">
+                        <span class="font-bold text-slate-800 text-sm">07:00 - 08:10 宮川朝市</span>
+                        <p class="text-slate-600 mt-1">漫步宮川沿岸體驗特色朝市攤位與在地手工藝品。</p>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-xl border">
+                        <span class="font-bold text-slate-800 text-sm">08:40 - 10:15 濃飛巴士搭乘</span>
+                        <p class="text-slate-600 mt-1">5 號月台搭乘平湯・新穗高線直達新穗高纜車站。</p>
+                    </div>
+                    <div class="p-4 bg-amber-50 rounded-xl border border-amber-200">
+                        <span class="font-bold text-amber-900 text-sm">10:15 - 14:30 🚠 新穗高纜車</span>
+                        <p class="text-amber-800 mt-1">搭乘日本唯一雙層纜車登上海拔 2,156m 展望台，享受 360 度北阿爾卑斯山脈雪景。</p>
+                    </div>
+                </div>
+
+                <div class="p-4 bg-red-50 rounded-xl border border-red-200 text-xs text-red-900">
+                    ⚠️ <strong>明天換飯店提醒：</strong>今晚回到高山 KOKO HOTEL 後，請務必先將大件行李整理好，以便明日一早前往合掌村與名古屋！
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: DAY 6 -->
+        <div id="tab-day6" class="tab-content space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-4 mb-6">
+                    <div>
+                        <span class="bg-[#f59e0b] text-slate-950 font-black text-xs px-3 py-1 rounded">Day 6</span>
+                        <h2 class="text-2xl font-bold text-slate-800 mt-1">2026/11/12 (四) 白川鄉合掌村半日遊 ➔ 名古屋</h2>
+                    </div>
+                    <div class="text-right text-xs text-slate-500">
+                        🏨 住宿：<a href="https://www.google.com/maps/search/APA+Hotel+Nagoya+Ekimae+Minami" target="_blank" class="font-semibold text-slate-800 hover:underline"><i class="fa-solid fa-location-dot"></i> APA Hotel Nagoya Ekimae Minami</a>
+                    </div>
+                </div>
+
+                <!-- Bus Ticket Badges -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs mb-6">
+                    <div class="p-3 bg-emerald-50 rounded-lg border border-emerald-200">
+                        <span class="font-bold text-emerald-900">去程巴士 (07:20 - 08:10)</span>
+                        <p class="text-emerald-700">高山 ➔ 合掌村 (班次0041)<br>座位：5B, 5A, 6B, 6A, 7B, 7A</p>
+                    </div>
+                    <div class="p-3 bg-emerald-50 rounded-lg border border-emerald-200">
+                        <span class="font-bold text-emerald-900">回程巴士 (12:35 - 13:25)</span>
+                        <p class="text-emerald-700">合掌村 ➔ 高山 (班次0102)<br>座位：5B, 5A, 6B, 6A, 7B, 7A</p>
+                    </div>
+                    <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                        <span class="font-bold text-blue-900">跨縣巴士 (15:00 - 17:35)</span>
+                        <p class="text-blue-700">高山 ➔ 名古屋 (班次13215 1號車)<br>座位：04A~07B</p>
+                    </div>
+                </div>
+
+                <!-- Shirakawago Highlights -->
+                <div class="bg-slate-50 p-4 rounded-xl border mb-6 text-xs space-y-2">
+                    <h3 class="font-bold text-sm text-slate-800"><i class="fa-solid fa-camera text-amber-500 mr-1"></i>合掌村重點景點與隨興美食</h3>
+                    <ul class="list-disc pl-5 text-slate-600 space-y-1">
+                        <li><strong>展望台俯瞰：</strong>城山天守閣 / 荻町城跡展望台 (接駁車單程¥300)。</li>
+                        <li><strong>合掌造內部：</strong>和田家 (門票¥400)、神田家 (門票¥400)、明善寺。</li>
+                        <li><strong>人氣咖啡與小吃：</strong>喫茶落人紅豆湯圓、忠兵衛三小屋、飛驒牛串燒。</li>
+                    </ul>
+                </div>
+
+                <!-- Dinner Option -->
+                <div class="p-4 bg-amber-50 rounded-xl border border-amber-200 text-xs">
+                    <h3 class="font-bold text-sm text-amber-900 mb-1">🍱 晚餐特別推薦：矢場味噌豬排 (矢場とん)</h3>
+                    <p class="text-amber-800">抵達名古屋後享用黑味噌炸豬排！推薦招牌：鐵板味噌里肌豬排定食、草鞋雙味豬排。門市可選名鐵店 (名鐵百貨9F) 或 ESCA 地下街店。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: DAY 7 -->
+        <div id="tab-day7" class="tab-content space-y-6">
             <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4">
                 <div class="flex justify-between items-center border-b pb-3">
-                    <h2 class="text-xl font-bold text-slate-950"><i class="fa-solid fa-landmark text-rose-500 mr-2"></i>Day 7 行程：犬山城巡禮、名古屋城與大須商圈</h2>
+                    <h2 class="text-xl font-bold text-slate-900"><i class="fa-solid fa-landmark text-amber-500 mr-2"></i>Day 7 行程：國寶犬山城、名古屋城與大須商圈</h2>
                     <span class="text-xs bg-slate-100 px-3 py-1 rounded-full font-medium text-slate-600">2026/11/13 (五) ｜ 宿：APA名古屋站前南</span>
                 </div>
                 <div class="overflow-x-auto">
@@ -488,19 +668,19 @@
                             <tr class="border-b hover:bg-slate-50">
                                 <td class="p-3 font-semibold">06:30 - 07:30</td>
                                 <td class="p-3 font-medium">飯店早餐</td>
-                                <td class="p-3">於 APA Hotel 1 樓附設餐廳享用豐富早餐。</td>
-                                <td class="p-3 text-xs text-slate-600">補足體力</td>
+                                <td class="p-3">於 APA Hotel 1 樓餐廳享用豐富早餐，補充精力。</td>
+                                <td class="p-3 text-xs text-slate-500">飯店內用餐</td>
                             </tr>
                             <tr class="border-b hover:bg-slate-50">
                                 <td class="p-3 font-semibold">07:40 - 08:30</td>
                                 <td class="p-3 font-medium">名古屋 ➔ 犬山遊園站</td>
                                 <td class="p-3">購買『犬山城下町套票』搭乘名鐵特急直達犬山遊園站。</td>
-                                <td class="p-3 text-xs text-slate-600">套票售價 ¥1,950<br>(含來回車票+門票+優惠券)</td>
+                                <td class="p-3 text-xs text-slate-600">套票 ¥1,950<br>(含車票+門票+優惠券)</td>
                             </tr>
                             <tr class="border-b hover:bg-slate-50">
                                 <td class="p-3 font-semibold">09:00 - 12:30</td>
-                                <td class="p-3 font-medium">🏯 國寶犬山城 & 下町散策</td>
-                                <td class="p-3">登上日本現存最古老木造天守閣、三光稻荷神社洗錢祈福、品嚐下町小吃。</td>
+                                <td class="p-3 font-medium">🏯 國寶犬山城 & 城下町</td>
+                                <td class="p-3">登上日本現存最古老木造天守閣、三光稻荷神社洗錢祈福、城下町散策。</td>
                                 <td class="p-3 text-xs text-slate-600">門票已含在套票內</td>
                             </tr>
                             <tr class="border-b hover:bg-slate-50">
@@ -512,112 +692,237 @@
                             <tr class="border-b hover:bg-slate-50">
                                 <td class="p-3 font-semibold">16:20 - 19:00</td>
                                 <td class="p-3 font-medium">🛍️ 大須觀音 & 大須商店街</td>
-                                <td class="p-3">參拜大須觀音寺，漫步廣大商店街體驗古著、動漫雜貨與異國小吃。</td>
+                                <td class="p-3">參拜大須觀音寺，漫步廣大商店街體驗古著、動漫雜貨與美味小吃。</td>
                                 <td class="p-3 text-xs text-slate-600">地鐵單程 ¥210</td>
                             </tr>
                             <tr class="hover:bg-slate-50">
                                 <td class="p-3 font-semibold">19:30~</td>
-                                <td class="p-3 font-medium">晚餐與飯店休息</td>
-                                <td class="p-3">返回 APA Hotel 休息，可順便逛周邊 MaxValu 超市或唐吉訶德。</td>
-                                <td class="p-3 text-xs text-slate-600">宿名古屋APA</td>
+                                <td class="p-3 font-medium">晚餐與賣場採買</td>
+                                <td class="p-3">返回 APA 休息，可至周邊 MaxValu 超市或唐吉訶德逛街補貨。</td>
+                                <td class="p-3 text-xs text-slate-500">宿名古屋APA</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-                <!-- Day 7 商店 MAP 連結 -->
-                <h4 class="font-bold text-md text-slate-800 pt-4 border-t">Day 7 晚間購物 MAP 連結</h4>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                <!-- Day 7 地圖連結 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm pt-2">
                     <div class="flex justify-between items-center p-3 border rounded bg-slate-50">
-                        <span>MaxValu 太閤店 (24H 超市)</span>
-                        <a href="https://maps.google.com" target="_blank" class="text-rose-600 font-bold px-2 py-1 bg-rose-50 rounded hover:bg-rose-100"><i class="fa-solid fa-map-pin mr-1"></i>MAP</a>
+                        <span>MaxValu 太閤店 (24H 大型超市)</span>
+                        <a href="https://www.google.com/maps/search/MaxValu+太閤店" target="_blank" class="text-amber-600 font-bold px-2 py-1 bg-amber-50 rounded hover:bg-amber-100"><i class="fa-solid fa-map-pin mr-1"></i>MAP</a>
                     </div>
                     <div class="flex justify-between items-center p-3 border rounded bg-slate-50">
-                        <span>唐吉訶德 榮本店 (24H)</span>
-                        <a href="https://maps.google.com" target="_blank" class="text-rose-600 font-bold px-2 py-1 bg-rose-50 rounded hover:bg-rose-100"><i class="fa-solid fa-map-pin mr-1"></i>MAP</a>
+                        <span>唐吉訶德 榮本店 (24H 旗艦店)</span>
+                        <a href="https://www.google.com/maps/search/驚安殿堂+唐吉訶德+榮本店" target="_blank" class="text-amber-600 font-bold px-2 py-1 bg-amber-50 rounded hover:bg-amber-100"><i class="fa-solid fa-map-pin mr-1"></i>MAP</a>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- ==================== Day 8 (完整補上) ==================== -->
-        <section id="day8" class="tab-content space-y-6">
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4">
-                <div class="flex justify-between items-center border-b pb-3">
-                    <h2 class="text-xl font-bold text-slate-950"><i class="fa-solid fa-plane-arrival text-indigo-600 mr-2"></i>Day 8 行程：名古屋返回中部國際機場 ✈ 台灣</h2>
-                    <span class="text-xs bg-slate-100 px-3 py-1 rounded-full font-medium text-slate-600">2026/11/14 (六) ｜ 賦歸</span>
+        <!-- TAB: DAY 8 -->
+        <div id="tab-day8" class="tab-content space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-4 mb-6">
+                    <div>
+                        <span class="bg-[#f59e0b] text-slate-950 font-black text-xs px-3 py-1 rounded">Day 8 (最後一天)</span>
+                        <h2 class="text-2xl font-bold text-slate-800 mt-1">2026/11/14 (六) 名古屋 ➔ 中部國際機場 (NGO) ✈ 台灣桃園 (TPE)</h2>
+                    </div>
+                    <div class="text-right text-xs text-slate-500">
+                        ✈ 虎航 IT207 (13:15 起飛)
+                    </div>
                 </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse text-sm">
-                        <thead>
-                            <tr class="bg-slate-100 text-slate-700">
-                                <th class="p-3 border-b w-28">時間</th>
-                                <th class="p-3 border-b w-40">地點 / 項目</th>
-                                <th class="p-3 border-b">詳細內容與路線</th>
-                                <th class="p-3 border-b w-36">備註 / 航班資訊</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="p-3 font-semibold">06:30 - 07:30</td>
-                                <td class="p-3 font-medium">飯店早餐</td>
-                                <td class="p-3">於 APA Hotel 享用最後一天的美味早餐，檢查隨身行李與護照。</td>
-                                <td class="p-3 text-xs text-slate-600">退房準備</td>
-                            </tr>
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="p-3 font-semibold">08:00</td>
-                                <td class="p-3 font-medium">出發前往機場</td>
-                                <td class="p-3">從名古屋站搭乘名鐵μ-SKY（特急）前往「中部國際機場站 (NGO)」。</td>
-                                <td class="p-3 text-xs text-slate-600">車程約 28 ~ 35 分鐘</td>
-                            </tr>
-                            <tr class="border-b hover:bg-slate-50">
-                                <td class="p-3 font-semibold">10:45 - 11:15</td>
-                                <td class="p-3 font-medium">機場櫃檯報到</td>
-                                <td class="p-3">抵達中部國際機場，前往虎航櫃檯辦理登機與行李託運。</td>
-                                <td class="p-3 text-xs text-rose-600 font-bold">⚠️ 務必準時報到</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-3 font-semibold">13:15 - 15:50</td>
-                                <td class="p-3 font-medium">名古屋 ✈ 台灣桃園</td>
-                                <td class="p-3">搭乘台灣虎航 IT207 航班返回台灣桃園國際機場 (TPE)，圓滿結束 8 日美好旅程！</td>
-                                <td class="p-3 text-xs text-indigo-600 font-bold">平安返家 🏠</td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+                <!-- Guidance Box -->
+                <div class="bg-amber-50 rounded-xl p-4 border border-amber-200 text-xs text-amber-900 mb-6 space-y-2">
+                    <h4 class="font-bold text-sm text-amber-900"><i class="fa-solid fa-plane-departure mr-1"></i> 回程機場報到與退房提醒：</h4>
+                    <p>• 班機預計 <strong>13:15</strong> 起飛，務必於 <strong>10:45～11:15</strong> 前抵達中部國際機場 T1 辦理報到手續與託運行李。</p>
+                    <p>• 早上預留時間整理大件行李，確認護照、隨身物品與伴手禮皆妥善打包。</p>
+                </div>
+
+                <!-- Schedule Timeline -->
+                <div class="relative border-l-2 border-slate-200 ml-4 pl-6 space-y-6 text-sm">
+                    <div class="relative">
+                        <span class="absolute -left-[31px] top-0 bg-amber-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">1</span>
+                        <div class="font-bold text-slate-800">06:30 - 07:45 飯店享用早餐 & 整理行李</div>
+                        <p class="text-xs text-slate-500">於 APA Hotel Nagoya Ekimae Minami 享用自助早餐，辦理退房手續並提取行李。</p>
+                    </div>
+
+                    <div class="relative">
+                        <span class="absolute -left-[31px] top-0 bg-blue-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">2</span>
+                        <div class="font-bold text-slate-800">08:00 飯店出發 ➔ 前往名鐵名古屋站</div>
+                        <p class="text-xs text-slate-500">從飯店步行前往名鐵名古屋站（約 5~8 分鐘）。</p>
+                    </div>
+
+                    <div class="relative">
+                        <span class="absolute -left-[31px] top-0 bg-emerald-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">3</span>
+                        <div class="font-bold text-slate-800">08:20 / 08:50 搭乘名鐵特急 ➔ 中部國際機場</div>
+                        <p class="text-xs text-slate-500">搭乘名鐵特急 / μ-SKY (μSKY 特急約 28 分鐘，一般特急約 37 分鐘到達）。車資約 ¥890~¥1,250。</p>
+                    </div>
+
+                    <div class="relative">
+                        <span class="absolute -left-[31px] top-0 bg-red-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">4</span>
+                        <div class="font-bold text-slate-800">09:30 - 10:45 機場免稅店巡禮 & 採購伴手禮</div>
+                        <p class="text-xs text-slate-500">抵達中部國際機場 T1！可先至蝦餅名店【坂角總本鋪】或蝦餅專賣店採購，並逛逛免稅店。</p>
+                    </div>
+
+                    <div class="relative">
+                        <span class="absolute -left-[31px] top-0 bg-purple-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">5</span>
+                        <div class="font-bold text-slate-800">10:45 - 11:15 虎航櫃檯辦理報到 & 托運行李</div>
+                        <p class="text-xs text-slate-500">前往台灣虎航 IT207 報到櫃檯辦理登機證與安檢通關。</p>
+                    </div>
+
+                    <div class="relative">
+                        <span class="absolute -left-[31px] top-0 bg-slate-800 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">6</span>
+                        <div class="font-bold text-slate-800">13:15 - 15:50 台灣虎航 IT207 飛往台灣</div>
+                        <p class="text-xs text-slate-500">中部國際機場 (NGO) ✈ 桃園國際機場 (TPE)，預計 15:50 平安抵達台灣，結束美好關西高山之旅！</p>
+                    </div>
+                </div>
+
+                <!-- Airport Souvenir Suggestions -->
+                <div class="mt-8 pt-6 border-t border-slate-200">
+                    <h3 class="font-bold text-base text-slate-800 mb-3"><i class="fa-solid fa-gift text-amber-500 mr-2"></i>中部國際機場 (NGO) 必買伴手禮推薦</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                        <div class="p-3 bg-slate-50 rounded-lg border">
+                            <span class="font-bold text-slate-800">🦐 坂角總本鋪 蝦餅 (ゆかり)</span>
+                            <p class="text-slate-500 mt-1">名古屋超強必買百年蝦餅，濃郁海味鹹香脆口。</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-lg border">
+                            <span class="font-bold text-slate-800">🧈 青柳總本家 小蛙饅頭 / 外郎餅</span>
+                            <p class="text-slate-500 mt-1">超可愛青蛙造型饅頭，還有傳統 Q 彈外郎餅。</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-lg border">
+                            <span class="font-bold text-slate-800">🍰 小倉紅豆奶油夾心餅乾</span>
+                            <p class="text-slate-500 mt-1">名古屋特有紅豆奶油吐司風味轉換成的精緻餅乾禮盒。</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+
+        <!-- TAB: MAPS (ALL MAP LINKS) -->
+        <div id="tab-maps" class="tab-content space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex items-center space-x-3 border-b border-slate-100 pb-4 mb-6">
+                    <i class="fa-solid fa-map-location-dot text-2xl text-amber-500"></i>
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-800">全行程 Google MAP 地圖快速連結庫</h2>
+                        <p class="text-xs text-slate-500">點擊以下任一地標即可直接啟動手機或電腦的 Google Maps 導航！</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6 text-xs">
+                    <!-- Hotels -->
+                    <div>
+                        <h3 class="font-bold text-sm text-slate-800 border-b pb-2 mb-3"><i class="fa-solid fa-bed mr-2 text-amber-500"></i>住宿飯店</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <a href="https://www.google.com/maps/search/APA+Hotel+Namba+Shinsaibashi+Nishi" target="_blank" class="p-3 bg-slate-50 rounded-lg border hover:bg-slate-100 flex justify-between items-center">
+                                <span class="font-bold">APA Hotel Namba Shinsaibashi Nishi (大阪)</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-amber-600"></i>
+                            </a>
+                            <a href="https://www.google.com/maps/search/KOKO+HOTEL+Hida+Takayama" target="_blank" class="p-3 bg-slate-50 rounded-lg border hover:bg-slate-100 flex justify-between items-center">
+                                <span class="font-bold">KOKO HOTEL Hida Takayama (高山)</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-amber-600"></i>
+                            </a>
+                            <a href="https://www.google.com/maps/search/APA+Hotel+Nagoya+Ekimae+Minami" target="_blank" class="p-3 bg-slate-50 rounded-lg border hover:bg-slate-100 flex justify-between items-center">
+                                <span class="font-bold">APA Hotel Nagoya Ekimae Minami (名古屋)</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-amber-600"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Attractions -->
+                    <div>
+                        <h3 class="font-bold text-sm text-slate-800 border-b pb-2 mb-3"><i class="fa-solid fa-torii-gate mr-2 text-amber-500"></i>著名景點</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                            <a href="https://www.google.com/maps/search/難波八阪神社" target="_blank" class="p-3 bg-slate-50 rounded-lg border hover:bg-slate-100 flex justify-between items-center">
+                                <span class="font-bold">難波八阪神社</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-amber-600"></i>
+                            </a>
+                            <a href="https://www.google.com/maps/search/勝尾寺" target="_blank" class="p-3 bg-slate-50 rounded-lg border hover:bg-slate-100 flex justify-between items-center">
+                                <span class="font-bold">勝尾寺</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-amber-600"></i>
+                            </a>
+                            <a href="https://www.google.com/maps/search/大阪城天守閣" target="_blank" class="p-3 bg-slate-50 rounded-lg border hover:bg-slate-100 flex justify-between items-center">
+                                <span class="font-bold">大阪城天守閣</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-amber-600"></i>
+                            </a>
+                            <a href="https://www.google.com/maps/search/Universal+Studios+Japan" target="_blank" class="p-3 bg-slate-50 rounded-lg border hover:bg-slate-100 flex justify-between items-center">
+                                <span class="font-bold">日本環球影城 USJ</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-amber-600"></i>
+                            </a>
+                            <a href="https://www.google.com/maps/search/高山老街+上三之町" target="_blank" class="p-3 bg-slate-50 rounded-lg border hover:bg-slate-100 flex justify-between items-center">
+                                <span class="font-bold">高山老街 (上三之町)</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-amber-600"></i>
+                            </a>
+                            <a href="https://www.google.com/maps/search/新穗高高空纜車" target="_blank" class="p-3 bg-slate-50 rounded-lg border hover:bg-slate-100 flex justify-between items-center">
+                                <span class="font-bold">新穗高高空纜車</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-amber-600"></i>
+                            </a>
+                            <a href="https://www.google.com/maps/search/白川鄉合掌村" target="_blank" class="p-3 bg-slate-50 rounded-lg border hover:bg-slate-100 flex justify-between items-center">
+                                <span class="font-bold">白川鄉合掌村</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-amber-600"></i>
+                            </a>
+                            <a href="https://www.google.com/maps/search/犬山城" target="_blank" class="p-3 bg-slate-50 rounded-lg border hover:bg-slate-100 flex justify-between items-center">
+                                <span class="font-bold">國寶犬山城</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-amber-600"></i>
+                            </a>
+                            <a href="https://www.google.com/maps/search/名古屋城" target="_blank" class="p-3 bg-slate-50 rounded-lg border hover:bg-slate-100 flex justify-between items-center">
+                                <span class="font-bold">名古屋城 & 本丸御殿</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-amber-600"></i>
+                            </a>
+                            <a href="https://www.google.com/maps/search/大須觀音" target="_blank" class="p-3 bg-slate-50 rounded-lg border hover:bg-slate-100 flex justify-between items-center">
+                                <span class="font-bold">大須觀音 & 商店街</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-amber-600"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </main>
 
-    <!-- 頁尾 -->
-    <footer class="bg-slate-900 text-slate-400 py-6 mt-12 text-center text-xs">
+    <!-- Footer -->
+    <footer class="bg-[#0f172a] text-slate-400 text-xs py-6 text-center border-t border-slate-800 mt-auto">
         <p>© 2026 Japan Kansai, Takayama & Nagoya Trip. All rights reserved.</p>
     </footer>
 
-    <!-- 切換頁籤的 JavaScript -->
+    <!-- JavaScript Functions -->
     <script>
         function switchTab(tabId) {
-            // 隱藏所有內容
+            // Hide all tabs
             const contents = document.querySelectorAll('.tab-content');
             contents.forEach(c => c.classList.remove('active'));
 
-            // 移除所有按鈕的啟用樣式
+            // Reset all header buttons
             const buttons = document.querySelectorAll('.tab-btn');
             buttons.forEach(b => {
-                b.classList.remove('bg-amber-500', 'text-slate-900', 'shadow');
-                b.classList.add('text-slate-300', 'hover:bg-slate-700', 'hover:text-white');
+                b.classList.remove('bg-[#f59e0b]', 'text-slate-950', 'font-bold', 'shadow-sm');
+                if(!b.id.includes('maps')) {
+                    b.classList.add('text-slate-300', 'font-medium');
+                }
             });
 
-            // 顯示目標內容
-            document.getElementById(tabId).classList.add('active');
+            // Show selected tab
+            const activeTab = document.getElementById('tab-' + tabId);
+            if (activeTab) {
+                activeTab.classList.add('active');
+            }
 
-            // 點擊的按鈕加上高亮樣式
-            const activeBtn = event.currentTarget;
-            activeBtn.classList.remove('text-slate-300', 'hover:bg-slate-700', 'hover:text-white');
-            activeBtn.classList.add('bg-amber-500', 'text-slate-900', 'shadow');
-            
+            // Highlight active button with yellow highlight style
+            const activeBtn = document.getElementById('tab-btn-' + tabId);
+            if (activeBtn) {
+                activeBtn.classList.remove('text-slate-300', 'font-medium');
+                activeBtn.classList.add('bg-[#f59e0b]', 'text-slate-950', 'font-bold', 'shadow-sm');
+            }
+
+            // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
         }
     </script>
 </body>
