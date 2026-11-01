@@ -96,6 +96,7 @@
                     <button onclick="switchTab('day6')" id="tab-btn-day6" class="tab-btn px-3.5 py-1.5 rounded text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-white/10">Day 6 合掌村</button>
                     <button onclick="switchTab('day7')" id="tab-btn-day7" class="tab-btn px-3.5 py-1.5 rounded text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-white/10">Day 7 犬山城</button>
                     <button onclick="switchTab('day8')" id="tab-btn-day8" class="tab-btn px-3.5 py-1.5 rounded text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-white/10">Day 8 返台</button>
+                 <button onclick="switchTab('immigration')" id="tab-btn-immigration" class="tab-btn px-3.5 py-1.5 rounded text-sm font-medium transition-all text-emerald-400 hover:text-emerald-300 hover:bg-white/10"><i class="fa-solid fa-passport mr-1"></i>入境卡/海關</button>
                     <button onclick="switchTab('maps')" id="tab-btn-maps" class="tab-btn px-3.5 py-1.5 rounded text-sm font-medium transition-all text-amber-400 hover:text-amber-300 hover:bg-white/10"><i class="fa-solid fa-map-location-dot mr-1"></i>MAP地圖集</button>
                 </nav>
             </div>
@@ -988,7 +989,110 @@
                 </div>
             </div>
         </div>
+        <!-- TAB: IMMIGRATION & CUSTOMS -->
+        <div id="tab-immigration" class="tab-content space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-6">
+                <!-- Banner Header -->
+                <div class="flex items-center space-x-3 border-b border-slate-100 pb-4">
+                    <i class="fa-solid fa-passport text-3xl text-emerald-600"></i>
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-800">日本入境卡 & 海關申告書填寫對照指南</h2>
+                        <p class="text-xs text-slate-500">紙本入境卡與海關申告卡填寫對照、第一天住宿資訊與居住城市/職業英文隨手查！</p>
+                    </div>
+                </div>
 
+                <!-- Quick Reference Info Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                    <!-- Hotel Address Reference -->
+                    <div class="bg-amber-50 rounded-xl p-4 border border-amber-200 space-y-2">
+                        <h3 class="font-bold text-sm text-amber-900 flex items-center">
+                            <i class="fa-solid fa-hotel mr-2 text-amber-600"></i>第1天大阪住宿地址與電話（入境填寫用）
+                        </h3>
+                        <div class="space-y-1 text-amber-950 font-mono">
+                            <p><strong>日本停留地址 (Address in Japan)：</strong><br><span class="bg-white px-2 py-1 rounded border border-amber-300 block mt-0.5 select-all font-bold">APA Hotel Namba Shinsaibashi Nishi, Osaka</span></p>
+                            <p class="text-[11px] text-amber-800">（日文對照：大阪府大阪市中央区難波2-3-6）</p>
+                            <p class="pt-1"><strong>日本連絡電話 (Tel)：</strong><br><span class="bg-white px-2 py-1 rounded border border-amber-300 block mt-0.5 select-all font-bold">+81-6-6214-3111</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Common Flight & Duration Info -->
+                    <div class="bg-blue-50 rounded-xl p-4 border border-blue-200 space-y-2">
+                        <h3 class="font-bold text-sm text-blue-900 flex items-center">
+                            <i class="fa-solid fa-plane-arrival mr-2 text-blue-600"></i>航班與停留天數填寫
+                        </h3>
+                        <div class="space-y-1.5 text-blue-950">
+                            <p><strong>入境搭乘航班 (Flight No.)：</strong> <span class="font-bold font-mono text-sm text-blue-900 bg-white px-2 py-0.5 rounded border border-blue-200">IT210</span></p>
+                            <p><strong>停留期間 (Duration of Stay)：</strong> <span class="font-bold font-mono text-sm text-blue-900 bg-white px-2 py-0.5 rounded border border-blue-200">8 Days</span></p>
+                            <p><strong>渡航目的 (Purpose of visit)：</strong> <span class="font-bold font-mono text-sm text-blue-900 bg-white px-2 py-0.5 rounded border border-blue-200">Tourism (觀光)</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- English Translation Helper Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                    <!-- Cities Translation -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <h4 class="font-bold text-slate-800 border-b pb-2 mb-2 flex items-center"><i class="fa-solid fa-city mr-1.5 text-emerald-600"></i>居住城市英文對照 (City / State)</h4>
+                        <table class="w-full text-left">
+                            <tbody class="divide-y divide-slate-200">
+                                <tr><td class="py-1.5 font-medium">台北市</td><td class="py-1.5 font-bold font-mono text-emerald-700">Taipei / Taipei City</td></tr>
+                                <tr><td class="py-1.5 font-medium">桃園市</td><td class="py-1.5 font-bold font-mono text-emerald-700">Taoyuan / Taoyuan City</td></tr>
+                                <tr><td class="py-1.5 font-medium">新竹市 / 新竹縣</td><td class="py-1.5 font-bold font-mono text-emerald-700">Hsinchu / Hsinchu City</td></tr>
+                                <tr><td class="py-1.5 font-medium">台中市</td><td class="py-1.5 font-bold font-mono text-emerald-700">Taichung / Taichung City</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Occupation Translation -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <h4 class="font-bold text-slate-800 border-b pb-2 mb-2 flex items-center"><i class="fa-solid fa-briefcase mr-1.5 text-emerald-600"></i>職業英文名稱對照 (Occupation)</h4>
+                        <table class="w-full text-left">
+                            <tbody class="divide-y divide-slate-200">
+                                <tr><td class="py-1.5 font-medium">工程師</td><td class="py-1.5 font-bold font-mono text-emerald-700">Engineer</td></tr>
+                                <tr><td class="py-1.5 font-medium">會計 / 財務人員</td><td class="py-1.5 font-bold font-mono text-emerald-700">Accountant / Finance</td></tr>
+                                <tr><td class="py-1.5 font-medium">專員 / 企劃 / 公司職員</td><td class="py-1.5 font-bold font-mono text-emerald-700">Office Worker / Specialist</td></tr>
+                                <tr><td class="py-1.5 font-medium">業務人員</td><td class="py-1.5 font-bold font-mono text-emerald-700">Sales / Sales Representative</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 4 Form Images Placeholders Section -->
+                <div class="pt-4 border-t border-slate-200">
+                    <h3 class="font-bold text-base text-slate-800 mb-4 flex items-center">
+                        <i class="fa-solid fa-file-lines text-amber-500 mr-2"></i>紙本入境卡與海關申告卡圖解說明（4張圖示）
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Image Card 1 -->
+                        <div class="bg-slate-50 rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow transition">
+                            <div class="p-3 bg-slate-100 border-b border-slate-200 font-bold text-xs text-slate-700 flex justify-between items-center">
+                                <span>圖 1：外國人入境紀錄卡 (正面填寫範例)</span>
+                                <span class="bg-emerald-100 text-emerald-800 text-[10px] px-2 py-0.5 rounded font-semibold">入境卡正面</span>
+                            </div>
+                            <div class="p-3">
+                                <img src="1.jpg" alt="外國人入境紀錄卡正面" class="w-full h-auto rounded border border-slate-200 object-contain max-h-[300px] mx-auto" onerror="this.onerror=null; this.src='https://placehold.co/600x400/f1f5f9/475569?text=Image+1:+Immigration+Card+Front';">
+                                <p class="text-[11px] text-slate-500 mt-2">填寫說明：請用英文大寫填寫姓名、國籍（TAIWAN）、出生年月日、護照號碼及飯店名稱地址。</p>
+                            </div>
+                        </div>
+                        <!-- Image Card 2 -->
+                        <div class="bg-slate-50 rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow transition">
+                            <div class="p-3 bg-slate-100 border-b border-slate-200 font-bold text-xs text-slate-700 flex justify-between items-center">
+                                <span>圖 2：攜帶品/別送品申告書 (海關卡正面/背面)</span>
+                                <span class="bg-blue-100 text-blue-800 text-[10px] px-2 py-0.5 rounded font-semibold">海關卡 A面/B面</span>
+                            </div>
+                            <div class="p-3">
+                                <img src="2.jpg" alt="海關申告書正面" class="w-full h-auto rounded border border-slate-200 object-contain max-h-[300px] mx-auto" onerror="this.onerror=null; this.src='https://placehold.co/600x400/f1f5f9/475569?text=Image+3:+Customs+Form+Front';">
+                                <p class="text-[11px] text-slate-500 mt-2">填寫說明：一個家庭或同行團體可共填一張，填寫搭乘航班、同行人數與飯店地址，申告事項勾選「否」。</p>
+                                <p class="text-[11px] text-slate-500 mt-2">填寫說明：若正面全勾「否」，背面通常無須另外加填項目；有超額貨幣或特殊申報品才需填寫。</p>
+                            </div>
+                        </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- TAB: MAPS (ALL MAP LINKS) -->
         <div id="tab-maps" class="tab-content space-y-6">
             <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
